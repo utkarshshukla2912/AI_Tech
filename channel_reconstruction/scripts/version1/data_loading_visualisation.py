@@ -40,15 +40,15 @@ for i in ch_names:
     data.append(list(combined[i]))
     mapping[i] = 'eeg'
 
-raw = mne.io.RawArray(data, info)
+raw = mne.io.RawArray(data, info,verbose=None)
 raw.set_channel_types(mapping)
 montage = mne.channels.read_montage('standard_1020')
-raw.set_montage(montage)
+raw.set_montage(montage,verbose=None)
 scalings = 'auto'
-
+raw.plot(scalings = scalings)
 # Plot Power Spectral Density
-#plot_raw_psd(raw)
-#plt.show()
+plot_raw_psd(raw)
+plt.show()
 
 save_obj(raw,'Eeg_recordings')
 

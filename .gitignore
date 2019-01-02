@@ -1,4 +1,2 @@
-channel_reconstruction/data/
-channel_reconstruction/objects/
 channel_reconstruction/data/*
-channel_reconstruction/objects/
+channel_reconstruction/objects/*

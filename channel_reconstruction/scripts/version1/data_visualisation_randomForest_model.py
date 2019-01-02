@@ -19,7 +19,7 @@ dfs = []
 channel_models = {}
 
 for file in tqdm(to_read):
-    df = pd.read_csv('../../data/rawInput/'+file,header=None)
+    df = pd.read_csv('../../data/version1/rawInput/'+file,header=None)
     df = df.transpose()
     df.columns = columns
     dfs.append(df)

@@ -1,0 +1,73 @@
+[INFO  2019-01-14 02:35:53 @__init__.py:79] Set root logger. Unset logger with neuralgym.unset_logger().
+[INFO  2019-01-14 02:35:53 @__init__.py:80] Saving logging to file: neuralgym_logs/20190114023553534708.
+[INFO  2019-01-14 02:35:56 @config.py:92] ---------------------------------- APP CONFIG ----------------------------------
+[INFO  2019-01-14 02:35:56 @config.py:119] DATASET: custom
+[INFO  2019-01-14 02:35:56 @config.py:119] RANDOM_CROP: False
+[INFO  2019-01-14 02:35:56 @config.py:119] VAL: False
+[INFO  2019-01-14 02:35:56 @config.py:119] LOG_DIR: model_log
+[INFO  2019-01-14 02:35:56 @config.py:119] MODEL_RESTORE: 
+[INFO  2019-01-14 02:35:56 @config.py:119] GAN: wgan_gp
+[INFO  2019-01-14 02:35:56 @config.py:119] PRETRAIN_COARSE_NETWORK: False
+[INFO  2019-01-14 02:35:56 @config.py:119] GAN_LOSS_ALPHA: 0.001
+[INFO  2019-01-14 02:35:56 @config.py:119] WGAN_GP_LAMBDA: 10
+[INFO  2019-01-14 02:35:56 @config.py:119] COARSE_L1_ALPHA: 1.2
+[INFO  2019-01-14 02:35:56 @config.py:119] L1_LOSS_ALPHA: 1.2
+[INFO  2019-01-14 02:35:56 @config.py:119] AE_LOSS_ALPHA: 1.2
+[INFO  2019-01-14 02:35:56 @config.py:119] GAN_WITH_MASK: False
+[INFO  2019-01-14 02:35:56 @config.py:119] DISCOUNTED_MASK: True
+[INFO  2019-01-14 02:35:56 @config.py:119] RANDOM_SEED: False
+[INFO  2019-01-14 02:35:56 @config.py:119] PADDING: SAME
+[INFO  2019-01-14 02:35:56 @config.py:119] NUM_GPUS: 1
+[INFO  2019-01-14 02:35:56 @config.py:119] GPU_ID: -1
+[INFO  2019-01-14 02:35:56 @config.py:119] TRAIN_SPE: 10000
+[INFO  2019-01-14 02:35:56 @config.py:119] MAX_ITERS: 1000000
+[INFO  2019-01-14 02:35:56 @config.py:119] VIZ_MAX_OUT: 10
+[INFO  2019-01-14 02:35:56 @config.py:119] GRADS_SUMMARY: False
+[INFO  2019-01-14 02:35:56 @config.py:119] GRADIENT_CLIP: False
+[INFO  2019-01-14 02:35:56 @config.py:119] GRADIENT_CLIP_VALUE: 0.1
+[INFO  2019-01-14 02:35:56 @config.py:119] VAL_PSTEPS: 1000
+[INFO  2019-01-14 02:35:56 @config.py:111] DATA_FLIST: 
+[INFO  2019-01-14 02:35:56 @config.py:119]   custom: ['../../objects/generative_inpainting/train_shuffled.flist', '../../objects/generative_inpainting/validation_shuffled.flist']
+[INFO  2019-01-14 02:35:56 @config.py:119]   celebahq: ['../../objects/generative_inpainting/train_shuffled.flist', '../../objects/generative_inpainting/validation_shuffled.flist']
+[INFO  2019-01-14 02:35:56 @config.py:119]   celeba: ['data/celeba/train_shuffled.flist', 'data/celeba/validation_static_view.flist']
+[INFO  2019-01-14 02:35:56 @config.py:119]   places2: ['data/places2/train_shuffled.flist', 'data/places2/validation_static_view.flist']
+[INFO  2019-01-14 02:35:56 @config.py:119]   imagenet: ['data/imagenet/train_shuffled.flist', 'data/imagenet/validation_static_view.flist']
+[INFO  2019-01-14 02:35:56 @config.py:119] STATIC_VIEW_SIZE: 30
+[INFO  2019-01-14 02:35:56 @config.py:119] IMG_SHAPES: [16, 100, 1]
+[INFO  2019-01-14 02:35:56 @config.py:119] HEIGHT: 10
+[INFO  2019-01-14 02:35:56 @config.py:119] WIDTH: 10
+[INFO  2019-01-14 02:35:56 @config.py:119] MAX_DELTA_HEIGHT: 32
+[INFO  2019-01-14 02:35:56 @config.py:119] MAX_DELTA_WIDTH: 32
+[INFO  2019-01-14 02:35:56 @config.py:119] BATCH_SIZE: 16
+[INFO  2019-01-14 02:35:56 @config.py:119] VERTICAL_MARGIN: 0
+[INFO  2019-01-14 02:35:56 @config.py:119] HORIZONTAL_MARGIN: 0
+[INFO  2019-01-14 02:35:56 @config.py:119] AE_LOSS: True
+[INFO  2019-01-14 02:35:56 @config.py:119] L1_LOSS: True
+[INFO  2019-01-14 02:35:56 @config.py:119] GLOBAL_DCGAN_LOSS_ALPHA: 1.0
+[INFO  2019-01-14 02:35:56 @config.py:119] GLOBAL_WGAN_LOSS_ALPHA: 1.0
+[INFO  2019-01-14 02:35:56 @config.py:119] LOAD_VGG_MODEL: False
+[INFO  2019-01-14 02:35:56 @config.py:119] VGG_MODEL_FILE: data/model_zoo/vgg16.npz
+[INFO  2019-01-14 02:35:56 @config.py:119] FEATURE_LOSS: False
+[INFO  2019-01-14 02:35:56 @config.py:119] GRAMS_LOSS: False
+[INFO  2019-01-14 02:35:56 @config.py:119] TV_LOSS: False
+[INFO  2019-01-14 02:35:56 @config.py:119] TV_LOSS_ALPHA: 0.0
+[INFO  2019-01-14 02:35:56 @config.py:119] FEATURE_LOSS_ALPHA: 0.01
+[INFO  2019-01-14 02:35:56 @config.py:119] GRAMS_LOSS_ALPHA: 50
+[INFO  2019-01-14 02:35:56 @config.py:119] SPATIAL_DISCOUNTING_GAMMA: 0.9
+[INFO  2019-01-14 02:35:56 @config.py:94] --------------------------------------------------------------------------------
+[INFO  2019-01-14 02:35:56 @gpus.py:39] Error reading GPU information, set no GPU.
+[INFO  2019-01-14 02:35:56 @dataset.py:26] --------------------------------- Dataset Info ---------------------------------
+[INFO  2019-01-14 02:35:56 @dataset.py:36] file_length: 1310
+[INFO  2019-01-14 02:35:56 @dataset.py:36] random: False
+[INFO  2019-01-14 02:35:56 @dataset.py:36] random_crop: False
+[INFO  2019-01-14 02:35:56 @dataset.py:36] filetype: image
+[INFO  2019-01-14 02:35:56 @dataset.py:36] shapes: [[16, 100, 1]]
+[INFO  2019-01-14 02:35:56 @dataset.py:36] dtypes: [tf.float32]
+[INFO  2019-01-14 02:35:56 @dataset.py:36] return_fnames: False
+[INFO  2019-01-14 02:35:56 @dataset.py:36] batch_phs: [<tf.Tensor 'Placeholder:0' shape=(?, 16, 100, 1) dtype=float32>]
+[INFO  2019-01-14 02:35:56 @dataset.py:36] enqueue_size: 32
+[INFO  2019-01-14 02:35:56 @dataset.py:36] queue_size: 256
+[INFO  2019-01-14 02:35:56 @dataset.py:36] nthreads: 16
+[INFO  2019-01-14 02:35:56 @dataset.py:36] fn_preprocess: None
+[INFO  2019-01-14 02:35:56 @dataset.py:36] index: 0
+[INFO  2019-01-14 02:35:56 @dataset.py:37] --------------------------------------------------------------------------------

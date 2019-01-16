@@ -9,7 +9,7 @@ import os
 from random import shuffle
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--folder_path', default='../../data/generative_inpainting/', type=str,
+parser.add_argument('--folder_path', default='../../data/generative_inpainting/ ', type=str,
                     help='The folder path')
 parser.add_argument('--train_filename', default='../../objects/generative_inpainting/train_shuffled.flist', type=str,
                     help='The output filename.')

@@ -1,7 +1,5 @@
-from sklearn.model_selection import train_test_split
-from sklearn.ensemble import RandomForestRegressor
+from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
-from PIL import Image
 from tqdm import tqdm
 import pandas as pd
 import numpy as np
@@ -21,12 +19,12 @@ class Reconstruction_pipeline:
         self.columns = ['F3', 'Fz', 'F4', 'C3', 'Cz', 'C4', 'P3', 'P4', 'FC5', 'FC1', 'FC2', 'FC4', 'CP5', 'CP1', 'CP2', 'CP4','Label']
 
     def save_obj(self, obj, name):
-        with open(self.object_path+'basic_approach/'+ name + '.pkl', 'wb') as f:
+        with open(self.object_path+'random_forest/'+ name + '.pkl', 'wb') as f:
             pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
         f.close()
 
     def load_obj(self, name):
-        with open(self.object_path+'basic_approach/'+ name + '.pkl', 'rb') as f:
+        with open(self.object_path+'random_forest/'+ name + '.pkl', 'rb') as f:
             object = pickle.load(f)
         f.close()
         return object
@@ -40,12 +38,14 @@ class Reconstruction_pipeline:
             df.columns = self.columns
             input_to_model = df[self.columns_to_keep].values
             input_to_model = input_to_model.reshape(len(input_to_model),10)
+            #input_to_model = StandardScaler().fit_transform(input_to_model)
             original_values = df[self.columns_to_hide].values
             for i,col in enumerate(self.columns_to_hide):
                 predicted_columns_values = self.model_list[i].predict(input_to_model)
-                print(self.model_list[i].score(input_to_model,df[self.columns_to_hide[0]]))
+                #print(self.model_list[i].score(input_to_model,df[self.columns_to_hide[i]]))
                 df[col] = predicted_columns_values
-            #file_name =
+            file_name = file[file.rindex('/')+1:].replace('.csv','_reconstructed.csv')
+            df.to_csv('../objects/reconstructed_files/'+file_name)
 
 
 

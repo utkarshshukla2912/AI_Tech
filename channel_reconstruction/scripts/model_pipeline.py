@@ -1,10 +1,9 @@
+import warnings
+warnings.filterwarnings('ignore')
 from sklearn.model_selection import train_test_split
-from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import ElasticNet
 from sklearn.model_selection import KFold
-from sklearn.linear_model import Lasso
 import matplotlib.pyplot as plt
 from PIL import Image
 from tqdm import tqdm
@@ -27,30 +26,31 @@ class EEG_pipeline:
         self.raw_data = []
         self.sampling_freq = 128
         plt.style.use('ggplot')
-
         self.clean_data_all_channels = []
         self.clean_data_channels_to_reconstruct = []
         self.clean_data_channels_to_keep = []
         self.labels = []
         self.data_for_regressor = []
-        self.regressor_models = {'gbr':GradientBoostingRegressor(), 'rfr':RandomForestRegressor(), 'enr':ElasticNet(),'lassor':Lasso()}
+        self.regressor_models = []
+        for i in range(0,6):
+            self.regressor_models.append(RandomForestRegressor())
 
 
     def save_obj(self, obj, name):
-        with open(self.object_path+'basic_approach/'+ name + '.pkl', 'wb') as f:
+        with open(self.object_path+'random_forest/'+ name + '.pkl', 'wb') as f:
             pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
         f.close()
 
 
     def load_obj(self, name):
-        with open(self.object_path+'basic_approach/'+ name + '.pkl', 'rb') as f:
+        with open(self.object_path+'random_forest/'+ name + '.pkl', 'rb') as f:
             object = pickle.load(f)
         f.close()
         return object
 
 
     def readRecordings(self):
-        if os.path.exists(self.object_path+'basic_approach/raw_data.pkl'):
+        if os.path.exists(self.object_path+'random_forest/raw_data.pkl'):
             self.raw_data = self.load_obj('raw_data')
         else:
             recordings = glob.glob(self.location+'/*.csv')
@@ -64,7 +64,7 @@ class EEG_pipeline:
 
 
     def preProcessData(self):
-        if os.path.exists(self.object_path+'basic_approach/clean_data_all_channels.pkl') and os.path.exists(self.object_path+'basic_approach/clean_data_channels_to_keep.pkl') and os.path.exists(self.object_path+'basic_approach/clean_data_channels_to_reconstruct.pkl') and os.path.exists(self.object_path+'basic_approach/labels.pkl'):
+        if os.path.exists(self.object_path+'random_forest/clean_data_all_channels.pkl') and os.path.exists(self.object_path+'random_forest/clean_data_channels_to_keep.pkl') and os.path.exists(self.object_path+'random_forest/clean_data_channels_to_reconstruct.pkl') and os.path.exists(self.object_path+'random_forest/labels.pkl'):
             self.clean_data_all_channels = self.load_obj('clean_data_all_channels')
             self.clean_data_channels_to_reconstruct = self.load_obj('clean_data_channels_to_keep')
             self.clean_data_channels_to_keep = self.load_obj('clean_data_channels_to_reconstruct')
@@ -82,40 +82,29 @@ class EEG_pipeline:
         self.save_obj(self.labels,'labels')
 
 
-    def runRegressor(self,visualise = False):
-        for regressor in self.regressor_models:
-            print('Training Model:',regressor)
-            model_array = []
-            for _ in range(0,6):
-                model_array.append(self.regressor_models[regressor])
-            kf = KFold(n_splits=10)
-            splits = kf.split(self.clean_data_channels_to_keep)
-            count = 1
-            for train_index, test_index in splits:
-                print('\tRunning split number: ',count); count += 1
-                X_train = np.take(self.clean_data_channels_to_keep,train_index,axis = 0)
-                X_test = np.take(self.clean_data_channels_to_keep,test_index,axis = 0)
-                y_train = np.take(self.clean_data_channels_to_reconstruct,train_index,axis = 0)
-                y_test = np.take(self.clean_data_channels_to_reconstruct,test_index,axis = 0)
-                X_train = np.array(X_train)
-                X_test = np.array(X_test)
-                y_train = np.array(y_train)
-                y_test = np.array(y_test)
-                X_train = X_train.reshape(X_train.shape[0]*X_train.shape[1], 10)
-                X_test = X_test.reshape(X_test.shape[0]*X_test.shape[1], 10)
-                y_train = y_train.reshape(y_train.shape[0]*y_train.shape[1], 6)
-                y_test = y_test.reshape(y_test.shape[0]*y_test.shape[1], 6)
-                for i in range(y_train.shape[1]):
-                    #print('\tTraining for Channel:',self.columns_to_hide[i])
-                    X_train = StandardScaler().fit_transform(X_train)
-                    model_array[i].fit(X_train,y_train[:,i])
-                    #print('\t\tScore for predicting channel '+str(self.regressor_models[i].score(StandardScaler().fit_transform(X_test),y_test[:,i])*100))
-                    if visualise:
-                        y_predicted = regressor.predict(X_test)
-                        a, = plt.plot(y_test[:,i],color = 'r',label="Original")
-                        b, = plt.plot(y_predicted,color = 'g',label="Predicted by Random Forest",linestyle='--')
-                        plt.show()
-            self.save_obj(model_array,'regressor_models_'+regressor)
+    def runRegressor(self,visualise = False,verbose = False):
+
+        X_train, X_test, y_train, y_test = train_test_split(self.clean_data_channels_to_keep, self.clean_data_channels_to_reconstruct, test_size=0.2, random_state=42)
+        X_train = np.array(X_train)
+        X_test = np.array(X_test)
+        y_train = np.array(y_train)
+        y_test = np.array(y_test)
+        X_train = X_train.reshape(X_train.shape[0]*X_train.shape[1], 10)
+        X_test = X_test.reshape(X_test.shape[0]*X_test.shape[1], 10)
+        y_train = y_train.reshape(y_train.shape[0]*y_train.shape[1], 6)
+        y_test = y_test.reshape(y_test.shape[0]*y_test.shape[1], 6)
+        for i in tqdm(range(y_train.shape[1])):
+            self.regressor_models[i].fit(X_train,y_train[:,i])
+            if verbose:
+                print('Training for Channel:',self.columns_to_hide[i])
+                print('\tScore for predicting channel '+str(self.regressor_models[i].score(X_test,y_test[:,i])*100))
+            if visualise:
+                y_predicted = self.regressor_models[i].predict(X_test)
+                a, = plt.plot(y_test[:,i],color = 'r',label="Original")
+                b, = plt.plot(y_predicted,color = 'g',label="Predicted by Random Forest",linestyle='--')
+                plt.show()
+        self.save_obj(self.regressor_models,'regressor_models')
+
 
     def prepareDataForGenerativeInpainting(self):
         image_array = np.array(self.clean_data_all_channels)

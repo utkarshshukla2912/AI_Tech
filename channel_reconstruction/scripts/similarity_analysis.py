@@ -11,8 +11,8 @@ import glob
 original_files = glob.glob('../data/EEG_recordings/*.csv')
 reconstructed_files = glob.glob('../objects/reconstructed_files/*.csv')
 columns = ['F3', 'Fz', 'F4', 'C3', 'Cz', 'C4', 'P3', 'P4', 'FC5', 'FC1', 'FC2', 'FC4', 'CP5', 'CP1', 'CP2', 'CP4','Label']
-columns_to_hide = ["F3", "Fz", "F4", "C3", "Cz", "C4"]
-columns_to_keep = ['P3', 'P4', 'FC5', 'FC1', 'FC2', 'FC4', 'CP5', 'CP1', 'CP2', 'CP4']
+columns_to_hide = ["F3", "Fz", "F4", "C3", "Cz", "C4", "FC5", "FC4", "CP5", "CP4"]
+columns_to_keep = ['P3', 'P4', 'FC1', 'FC2', 'CP1', 'CP2']
 original_files.sort()
 reconstructed_files.sort()
 

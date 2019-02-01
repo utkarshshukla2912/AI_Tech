@@ -14,8 +14,8 @@ class Reconstruction_pipeline:
         self.model_list = None
         self.object_path = '../objects/'
         self.recordings_path = '../data/Eeg_recordings/*.csv'
-        self.columns_to_hide = ["F3", "Fz", "F4", "C3", "Cz", "C4"]
-        self.columns_to_keep = ['P3', 'P4', 'FC5', 'FC1', 'FC2', 'FC4', 'CP5', 'CP1', 'CP2', 'CP4']
+        self.columns_to_hide = ["F3", "Fz", "F4", "C3", "Cz", "C4", "FC5", "FC4", "CP5", "CP4"]
+        self.columns_to_keep = ['P3', 'P4', 'FC1', 'FC2', 'CP1', 'CP2']
         self.columns = ['F3', 'Fz', 'F4', 'C3', 'Cz', 'C4', 'P3', 'P4', 'FC5', 'FC1', 'FC2', 'FC4', 'CP5', 'CP1', 'CP2', 'CP4','Label']
 
     def save_obj(self, obj, name):
@@ -37,7 +37,7 @@ class Reconstruction_pipeline:
             df = df.T.astype(float)
             df.columns = self.columns
             input_to_model = df[self.columns_to_keep].values
-            input_to_model = input_to_model.reshape(len(input_to_model),10)
+            input_to_model = input_to_model.reshape(len(input_to_model),6)
             #input_to_model = StandardScaler().fit_transform(input_to_model)
             original_values = df[self.columns_to_hide].values
             for i,col in enumerate(self.columns_to_hide):

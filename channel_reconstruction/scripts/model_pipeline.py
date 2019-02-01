@@ -19,8 +19,8 @@ class EEG_pipeline:
     def __init__(self, location = '../data/Eeg_recordings'):
 
         self.columns = ['F3', 'Fz', 'F4', 'C3', 'Cz', 'C4', 'P3', 'P4', 'FC5', 'FC1', 'FC2', 'FC4', 'CP5', 'CP1', 'CP2', 'CP4','Label']
-        self.columns_to_hide = ["F3", "Fz", "F4", "C3", "Cz", "C4"]
-        self.columns_to_keep = ['P3', 'P4', 'FC5', 'FC1', 'FC2', 'FC4', 'CP5', 'CP1', 'CP2', 'CP4']
+        self.columns_to_hide = ["F3", "Fz", "F4", "C3", "Cz", "C4", "FC5", "FC4", "CP5", "CP4"]
+        self.columns_to_keep = ['P3', 'P4', 'FC1', 'FC2', 'CP1', 'CP2']
         self.location = location
         self.object_path = '../objects/'
         self.raw_data = []
@@ -32,7 +32,7 @@ class EEG_pipeline:
         self.labels = []
         self.data_for_regressor = []
         self.regressor_models = []
-        for i in range(0,6):
+        for i in range(0,10):
             self.regressor_models.append(RandomForestRegressor())
 
 
@@ -89,10 +89,10 @@ class EEG_pipeline:
         X_test = np.array(X_test)
         y_train = np.array(y_train)
         y_test = np.array(y_test)
-        X_train = X_train.reshape(X_train.shape[0]*X_train.shape[1], 10)
-        X_test = X_test.reshape(X_test.shape[0]*X_test.shape[1], 10)
-        y_train = y_train.reshape(y_train.shape[0]*y_train.shape[1], 6)
-        y_test = y_test.reshape(y_test.shape[0]*y_test.shape[1], 6)
+        X_train = X_train.reshape(X_train.shape[0]*X_train.shape[1], 6)
+        X_test = X_test.reshape(X_test.shape[0]*X_test.shape[1], 6)
+        y_train = y_train.reshape(y_train.shape[0]*y_train.shape[1], 10)
+        y_test = y_test.reshape(y_test.shape[0]*y_test.shape[1], 10)
         for i in tqdm(range(y_train.shape[1])):
             self.regressor_models[i].fit(X_train,y_train[:,i])
             if verbose:
@@ -116,9 +116,13 @@ class EEG_pipeline:
 
 
 pipeline = EEG_pipeline()
+#print('done')
 pipeline.readRecordings()
+#print('done')
 pipeline.preProcessData()
+#print('done')
 pipeline.prepareDataForGenerativeInpainting()
+#print('done')
 pipeline.runRegressor() # set visualise = True to see difference between predicted and actual values
 
 

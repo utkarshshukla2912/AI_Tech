@@ -1,2 +1,4 @@
 channel_reconstruction/data/*
 channel_reconstruction/objects/*
+EEG_classification_model/data/*
+EEG_classification_model/objects/*

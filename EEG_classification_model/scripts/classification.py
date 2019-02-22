@@ -193,7 +193,7 @@ def modelVis():
     plt.ylabel('accuracy')
     plt.xlabel('epoch')
     plt.legend(['train', 'validation'], loc='upper left')
-    plt.savefig('accuracy.png')
+    plt.savefig('../objects/accuracy.png')
     # "Loss"
     plt.plot(history.history['loss'])
     plt.plot(history.history['val_loss'])
@@ -201,7 +201,7 @@ def modelVis():
     plt.ylabel('loss')
     plt.xlabel('epoch')
     plt.legend(['train', 'validation'], loc='upper left')
-    plt.savefig('loss.png')
+    plt.savefig('../objects/loss.png')
 
 
 

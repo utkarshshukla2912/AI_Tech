@@ -1,0 +1,37 @@
+2019-02-22 13:27:11 INFO     Starting Training Pipeline
+2019-02-22 13:27:11 INFO     Trining on DeepConvNet
+2019-02-22 13:27:11 INFO     Starting Data Preprocessing
+2019-02-22 13:27:11 INFO     Data and Labels exists
+2019-02-22 13:27:11 INFO     Existing Data and Labels fetched
+2019-02-22 13:27:11 INFO     Preprocessing Labels
+2019-02-22 13:27:11 INFO     Preprocessing Done
+2019-02-22 13:27:11 INFO     Initialising DeepConvNet
+2019-02-22 13:27:12 INFO     DeepConvNet Created
+2019-02-22 13:27:23 INFO     Saved Trained Model
+2019-02-22 13:49:24 INFO     Starting Training Pipeline
+2019-02-22 13:49:24 INFO     Trining on DeepConvNet
+2019-02-22 13:49:24 INFO     Starting Data Preprocessing
+2019-02-22 13:49:24 INFO     Data and Labels exists
+2019-02-22 13:49:24 INFO     Existing Data and Labels fetched
+2019-02-22 13:49:24 INFO     Preprocessing Labels
+2019-02-22 13:49:24 INFO     Preprocessing Done
+2019-02-22 13:49:24 INFO     Initialising DeepConvNet
+2019-02-22 13:49:25 INFO     DeepConvNet Created
+2019-02-22 13:50:15 INFO     Starting Training Pipeline
+2019-02-22 13:50:15 INFO     Trining on DeepConvNet
+2019-02-22 13:50:15 INFO     Starting Data Preprocessing
+2019-02-22 13:50:15 INFO     Data and Labels exists
+2019-02-22 13:50:15 INFO     Existing Data and Labels fetched
+2019-02-22 13:50:15 INFO     Preprocessing Labels
+2019-02-22 13:50:15 INFO     Preprocessing Done
+2019-02-22 13:50:15 INFO     Initialising DeepConvNet
+2019-02-22 13:50:16 INFO     DeepConvNet Created
+2019-02-22 13:54:14 INFO     Starting Training Pipeline
+2019-02-22 13:54:14 INFO     Trining on EEGNet
+2019-02-22 13:54:14 INFO     Starting Data Preprocessing
+2019-02-22 13:54:14 INFO     Data and Labels exists
+2019-02-22 13:54:14 INFO     Existing Data and Labels fetched
+2019-02-22 13:54:14 INFO     Preprocessing Labels
+2019-02-22 13:54:14 INFO     Preprocessing Done
+2019-02-22 13:54:14 INFO     Initialising EEGNet
+2019-02-22 13:54:15 INFO     EEGNet Created

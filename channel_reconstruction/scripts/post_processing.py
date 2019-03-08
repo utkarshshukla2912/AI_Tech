@@ -9,4 +9,3 @@ for file in tqdm(files):
     df = df.drop('Unnamed: 0',axis = 1)
     df = df.T
     df.to_csv('../objects/post_processed/'+file_name,header=False, index=False)
-    

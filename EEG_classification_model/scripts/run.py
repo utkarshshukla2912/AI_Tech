@@ -8,6 +8,7 @@ from keras.layers import Input, Flatten
 from keras.constraints import max_norm
 from keras.regularizers import l1_l2
 from keras.models import load_model
+from sklearn import preprocessing
 import matplotlib.pyplot as plt
 from keras import backend as K
 from keras.models import Model
@@ -138,12 +139,12 @@ def loadData(data_path,object_path):
         label_collection = []
         file_list = glob.glob(data_path+'*.csv')
         for file in tqdm(file_list):
-            if 'william' not in file:
-                continue
             recording = pd.read_csv(file,header = None)
             recording = recording.drop(recording.index[len(recording)-1])
             recording = np.array(recording)[:,:1000]
-            data_collection.append(recording)
+            min_max_scaler = preprocessing.MinMaxScaler()
+            X_train_minmax = min_max_scaler.fit_transform(recording)
+            data_collection.append(X_train_minmax)
             label_collection.append(int(float(file.split('_')[2])))
         logging.info('Saving Data Fetched From Raw Files')
         np.save(object_path+'data_collection.npy',data_collection)

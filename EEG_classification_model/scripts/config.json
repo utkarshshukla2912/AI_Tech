@@ -1,7 +1,7 @@
 {
 "data_path": "../data/",
 "object_path": "../objects/",
-"training_model": "EEGNet",
+"training_model": "DeepConvNet",
 "nb_classes":2,
 "testing_file_path": "../training_file.csv"
 }

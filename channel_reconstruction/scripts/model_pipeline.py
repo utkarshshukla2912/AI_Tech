@@ -16,7 +16,7 @@ import os
 
 class EEG_pipeline:
 
-    def __init__(self, location = '../data/Eeg_recordings'):
+    def __init__(self, location = '../../data/'):
 
         self.columns = ['F3', 'Fz', 'F4', 'C3', 'Cz', 'C4', 'P3', 'P4', 'FC5', 'FC1', 'FC2', 'FC4', 'CP5', 'CP1', 'CP2', 'CP4','Label']
         self.columns_to_hide = ["F3", "Fz", "F4", "C3", "Cz", "C4", "FC5", "FC4", "CP5", "CP4"]
@@ -121,7 +121,7 @@ pipeline.readRecordings()
 #print('done')
 pipeline.preProcessData()
 #print('done')
-pipeline.prepareDataForGenerativeInpainting()
+#pipeline.prepareDataForGenerativeInpainting()
 #print('done')
 pipeline.runRegressor() # set visualise = True to see difference between predicted and actual values
 

@@ -1,0 +1,7 @@
+{
+"samplingFrequency":128,
+"windowSize":10,
+"numberOfChannels":16,
+"dataPath":"../data/",
+"objectPath":"../objects/"
+}

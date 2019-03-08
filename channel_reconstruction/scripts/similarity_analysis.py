@@ -8,7 +8,7 @@ import pandas as pd
 import numpy as np
 import glob
 
-original_files = glob.glob('../data/EEG_recordings/*.csv')
+original_files = glob.glob('../data/*.csv')
 reconstructed_files = glob.glob('../objects/reconstructed_files/*.csv')
 columns = ['F3', 'Fz', 'F4', 'C3', 'Cz', 'C4', 'P3', 'P4', 'FC5', 'FC1', 'FC2', 'FC4', 'CP5', 'CP1', 'CP2', 'CP4','Label']
 columns_to_hide = ["F3", "Fz", "F4", "C3", "Cz", "C4", "FC5", "FC4", "CP5", "CP4"]

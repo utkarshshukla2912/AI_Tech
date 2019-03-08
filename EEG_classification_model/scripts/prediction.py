@@ -26,7 +26,7 @@ logger = logging.getLogger(__name__)
 def load_file(file):
     recording = pd.read_csv(file,header = None)
     recording = recording.drop(recording.index[len(recording)-1])
-    recording = np.array(recording).reshape(-1,1).[:,:1000]
+    recording = np.array(recording).reshape(-1,1)[:,:1000]
     recording = recording.reshape(len(recording),1, 16, 1000)
     return(recording)
 

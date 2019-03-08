@@ -13,7 +13,7 @@ class Reconstruction_pipeline:
     def __init__(self):
         self.model_list = None
         self.object_path = '../objects/'
-        self.recordings_path = '../data/Eeg_recordings/*.csv'
+        self.recordings_path = '../../data/*.csv'
         self.columns_to_hide = ["F3", "Fz", "F4", "C3", "Cz", "C4", "FC5", "FC4", "CP5", "CP4"]
         self.columns_to_keep = ['P3', 'P4', 'FC1', 'FC2', 'CP1', 'CP2']
         self.columns = ['F3', 'Fz', 'F4', 'C3', 'Cz', 'C4', 'P3', 'P4', 'FC5', 'FC1', 'FC2', 'FC4', 'CP5', 'CP1', 'CP2', 'CP4','Label']

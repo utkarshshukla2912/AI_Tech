@@ -8,6 +8,7 @@ from keras.layers import Input, Flatten
 from keras.constraints import max_norm
 from keras.regularizers import l1_l2
 from keras.models import load_model
+from sklearn import preprocessing
 import matplotlib.pyplot as plt
 from keras import backend as K
 from keras.models import Model
@@ -24,7 +25,7 @@ logging.basicConfig(filename = 'logs/model_logs.logs',format='%(asctime)s %(leve
 logger = logging.getLogger(__name__)
 
 
-def EEGNet(nb_classes, Chans = 16, Samples = 1000,dropoutRate = 0.25,
+def EEGNet(nb_classes, Chans = 16, Samples = 100,dropoutRate = 0.25,
            kernLength = 64, F1 = 4,D = 2, F2 = 8, norm_rate = 0.25,
             dropoutType = 'Dropout'):
     logger.info('Initialising EEGNet')
@@ -63,7 +64,7 @@ def EEGNet(nb_classes, Chans = 16, Samples = 1000,dropoutRate = 0.25,
     logger.info('EEGNet Created')
     return Model(inputs=input1, outputs=softmax)
 
-def DeepConvNet(nb_classes, Chans = 16, Samples = 1000,
+def DeepConvNet(nb_classes, Chans = 16, Samples = 100,
                 dropoutRate = 0.5):
 
     logger.info('Initialising DeepConvNet')
@@ -112,7 +113,7 @@ def square(x):
 def log(x):
     return K.log(K.clip(x, min_value = 1e-7, max_value = 10000))
 
-def ShallowConvNet(nb_classes, Chans = 16, Samples = 1000, dropoutRate = 0.5):
+def ShallowConvNet(nb_classes, Chans = 16, Samples = 100, dropoutRate = 0.5):
     logger.info('Initialising ShallowNet')
     input_main   = Input((1, Chans, Samples))
     block1       = Conv2D(40, (1, 13),
@@ -138,8 +139,6 @@ def loadData(data_path,object_path):
         label_collection = []
         file_list = glob.glob(data_path+'*.csv')
         for file in tqdm(file_list):
-            if 'william' not in file:
-                continue
             recording = pd.read_csv(file,header = None)
             recording = recording.drop(recording.index[len(recording)-1])
             recording = np.array(recording)[:,:1000]
@@ -164,15 +163,21 @@ def dataPreprocessor(data_path,object_path):
     enc = OneHotEncoder(handle_unknown='ignore',sparse=False)
     eeg_data = data[0]
     labels = data[1]
-    #resampled_data = []
-    #resampled_labels = []
-    '''
+    #'''
+    resampled_data = []
+    resampled_labels = []
     for i in range(len(eeg_data)):
         label = labels[i]
         for j in range(10):
+            min_max_scaler = preprocessing.MinMaxScaler()
             ed = eeg_data[i][:,j*100:(j+1)*100]
+            X_train_minmax = min_max_scaler.fit_transform(ed)
             resampled_data.append(ed)
             resampled_labels.append(label)
+    resampled_data = np.array(resampled_data).reshape(len(resampled_data),1, 16, 100)
+    resampled_labels = np.array(resampled_labels).reshape(-1,1)
+    resampled_labels = np.array(enc.fit_transform(resampled_labels),dtype = int)
+    #'''
     '''
     resampled_data = np.array(eeg_data)
     resampled_data = resampled_data.reshape(len(resampled_data),1, 16, 1000)
@@ -180,6 +185,7 @@ def dataPreprocessor(data_path,object_path):
     resampled_labels = np.array(labels)
     resampled_labels = resampled_labels.reshape(-1,1)
     resampled_labels = np.array(enc.fit_transform(resampled_labels),dtype = int)
+    '''
     logger.info('Preprocessing Done')
     return([resampled_data,resampled_labels])
 
@@ -193,7 +199,7 @@ def trainModel(data_path,object_path,model_name,nb_classes):
     else:
         model = EEGNet(nb_classes = nb_classes)
     model.compile(loss='categorical_crossentropy', optimizer='adam',metrics=['accuracy'])
-    history = model.fit(data[0], data[1], batch_size=16, epochs=250,validation_split=0.2)
+    history = model.fit(data[0], data[1], batch_size=64, epochs=250,validation_split=0.2)
     logger.info('Saved Trained Model')
     model.save(object_path+model_name+'.h5')
     return(history)

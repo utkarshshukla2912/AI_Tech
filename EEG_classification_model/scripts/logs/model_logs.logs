@@ -202,3 +202,12 @@
 2019-03-02 02:09:02 INFO     Preprocessing Done
 2019-03-02 02:09:02 INFO     Initialising DeepConvNet
 2019-03-02 02:09:04 INFO     DeepConvNet Created
+2019-03-08 23:56:41 INFO     Starting Training Pipeline
+2019-03-08 23:56:41 INFO     Trining on DeepConvNet
+2019-03-08 23:56:41 INFO     Starting Data Preprocessing
+2019-03-08 23:56:41 INFO     Data and Labels exists
+2019-03-08 23:56:41 INFO     Existing Data and Labels fetched
+2019-03-08 23:56:41 INFO     Preprocessing Labels
+2019-03-08 23:56:41 INFO     Preprocessing Done
+2019-03-08 23:56:41 INFO     Initialising DeepConvNet
+2019-03-08 23:56:42 INFO     DeepConvNet Created

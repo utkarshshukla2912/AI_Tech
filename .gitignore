@@ -1,3 +1,4 @@
 data/*
 channel_reconstruction/objects/*
 EEG_classification_model/objects/*
+feature_based/objects/*

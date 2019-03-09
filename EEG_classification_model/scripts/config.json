@@ -1,5 +1,5 @@
 {
-"data_path": "../data/",
+"data_path": "../../data/",
 "object_path": "../objects/",
 "training_model": "DeepConvNet",
 "nb_classes":2,

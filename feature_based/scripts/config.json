@@ -1,0 +1,21 @@
+{
+
+"data_path": "../../data/",
+"object_path": "../objects/",
+"sampling_frequency":128,
+
+"data_file_based":"features_file.npy",
+"data_channel_based":"features_per_channel.npy",
+
+"label_file_based":"label_file.npy",
+"label_channel_based":"label_per_channel.npy",
+
+"models_channel_based":"channel_based/",
+"models_file_based":"file_based/",
+
+"model_to_use":"file_based"
+
+
+
+
+}

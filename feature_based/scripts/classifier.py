@@ -93,29 +93,31 @@ def plot_confusion_matrix(cm, classes,normalize=False,title='Confusion matrix',c
     plt.xlabel('Predicted label')
 
 for name, clf in zip(names, classifiers):
+        try:
+            kf = KFold(n_splits=5)
+            for train_index, test_index in kf.split(X):
+                X_train, X_test = X[train_index], X[test_index]
+                y_train, y_test = Y[train_index], Y[test_index]
+                clf.fit(X_train,y_train)
 
-        kf = KFold(n_splits=5)
-        for train_index, test_index in kf.split(X):
-            X_train, X_test = X[train_index], X[test_index]
-            y_train, y_test = Y[train_index], Y[test_index]
-            clf.fit(X_train,y_train)
+            print ("Calculating for model: ",name)
+            filename = name+'_{}.sav'.format(config['model_to_use'])
+            pickle.dump(clf, open(object_path+model_path+filename, 'wb'))
+            print (name+' Score:',clf.score(X_test,y_test))
+            prediction = clf.predict(X_test)
+            cnf_matrix = confusion_matrix(y_test,prediction)
+            np.set_printoptions(precision=2)
+            print (name+" Recall metric in the testing dataset: ", np.true_divide(cnf_matrix[1,1],(cnf_matrix[1,0]+cnf_matrix[1,1])))
+            class_names = [0,1]
+            plt.figure()
+            plot_confusion_matrix(cnf_matrix, classes=class_names, title=name)
+            print (name+" Precision: ", np.true_divide(cnf_matrix[1,1],(cnf_matrix[0,1]+cnf_matrix[1,1])))
 
-        print ("Calculating for model: ",name)
-        filename = name+'.sav'
-        pickle.dump(clf, open(object_path+model_path+filename, 'wb'))
-        print (name+' Score:',clf.score(X_test,y_testy))
-        prediction = clf.predict(X_test)
-        cnf_matrix = confusion_matrix(y_test,prediction)
-        np.set_printoptions(precision=2)
-        print (name+" Recall metric in the testing dataset: ", np.true_divide(cnf_matrix[1,1],(cnf_matrix[1,0]+cnf_matrix[1,1])))
-        class_names = [0,1]
-        plt.figure()
-        plot_confusion_matrix(cnf_matrix, classes=class_names, title=name)
-        print (name+" Precision: ", np.true_divide(cnf_matrix[1,1],(cnf_matrix[0,1]+cnf_matrix[1,1])))
-
-        recall=np.true_divide(cnf_matrix[1,1],(cnf_matrix[1,0]+cnf_matrix[1,1]))
-        print (name+" Recall: ", recall)
-        precision=np.true_divide(cnf_matrix[1,1],(cnf_matrix[0,1]+cnf_matrix[1,1]))
-        f1score=2*np.true_divide(precision*recall,(precision+recall))
-        print (name+" F1 Score: ", f1score,"\n\n")
-        plt.show()
+            recall=np.true_divide(cnf_matrix[1,1],(cnf_matrix[1,0]+cnf_matrix[1,1]))
+            print (name+" Recall: ", recall)
+            precision=np.true_divide(cnf_matrix[1,1],(cnf_matrix[0,1]+cnf_matrix[1,1]))
+            f1score=2*np.true_divide(precision*recall,(precision+recall))
+            print (name+" F1 Score: ", f1score,"\n\n")
+            plt.show()
+        except:
+            pass
